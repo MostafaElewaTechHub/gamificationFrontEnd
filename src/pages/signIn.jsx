@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Container, Form } from "react-bootstrap";
 const baseURL = "http://localhost:5000/api/v1/auth/email";
 function SignIn() {
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -23,7 +23,7 @@ function SignIn() {
           auth: {
             username: "defaultkey",
           },
-          params: { create: true, username: name },
+          params: { create: false },
         }
       );
       console.log(res);
@@ -31,7 +31,7 @@ function SignIn() {
         console.log(res.data.token);
         localStorage.setItem("jwt", res.data.token);
         console.log(localStorage.getItem("jwt"));
-        navigate("/");
+        navigate("/tournments");
       } else {
         setMessage("Some error occured");
       }
@@ -46,13 +46,13 @@ function SignIn() {
         <h1>Sign in</h1>
         <h7> Track your Competators</h7>
         <Container fluid className="form">
-          <Form.Group className="mb-3" controlId="name">
+          {/* <Form.Group className="mb-3" controlId="name">
             <Form.Control
               type="text"
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group className="mb-3" controlId="Email">
             <Form.Control
               type="email"

@@ -4,25 +4,30 @@ import React from "react";
 import { Sidebar } from "../components/sidebar";
 import { Col, Container, Row } from "react-bootstrap";
 import "../components/sidebarStyle.css";
-const baseURL =
-  "http://127.0.0.1:7350/v2/rpc/get_leaderboards?http_key=defaulthttpkey&unwrap";
+import { Navigate } from "react-router-dom";
+const baseURL = "http://localhost:5000/api/v1/tournament/all";
 
 export default function Tournments() {
   const [post, setPost] = React.useState(null);
+  const token = localStorage.getItem("jwt");
 
   React.useEffect(() => {
     axios
-      .post(baseURL, {
-        categoryStart: 0,
-        categoryEnd: 4,
-        limit: 100,
+      .get(baseURL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((response) => {
-        setPost(response.data.data.leaderboards);
+        // console.log(response);
+        if (response.statusCode === 401) {
+          return <Navigate to="/signin" replace />;
+        }
+        setPost(response.data.tournaments);
       });
-  }, []);
+  }, [token]);
 
-  if (!post) return "No post!";
+  if (!post) return "No Tournments!";
 
   return (
     <>
@@ -32,7 +37,7 @@ export default function Tournments() {
             <Sidebar />
           </Col>
           <Col xs={10} id="page-content-wrapper">
-            <BasicExample parentToChild={post}></BasicExample>;
+            <BasicExample parentToChild={post}></BasicExample>
           </Col>
         </Row>
       </Container>

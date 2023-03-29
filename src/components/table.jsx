@@ -7,9 +7,9 @@ function BasicExample({ parentToChild }) {
       <thead>
         <tr>
           <th>id</th>
-          <th>operator</th>
           <th>create Time</th>
           <th>sort order</th>
+          <th>operator</th>
         </tr>
       </thead>
       <tbody>

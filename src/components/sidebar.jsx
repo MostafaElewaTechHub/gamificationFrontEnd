@@ -15,6 +15,9 @@ export const Sidebar = (props) => {
         <Nav.Item>
           <Nav.Link href="/tournments">Tournments</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/create-tournments">Create Tournments</Nav.Link>
+        </Nav.Item>
       </Nav>
     </>
   );

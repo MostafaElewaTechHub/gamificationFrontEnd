@@ -58,8 +58,18 @@ function App() {
           path="/create-tournments"
           element={
             <ProtectedRoute>
-              {" "}
-              <CreateTournments />{" "}
+              <ProtectedRoute>
+                <Container fluid>
+                  <Row>
+                    <Col xs={2} id="sidebar-wrapper">
+                      <Sidebar />
+                    </Col>
+                    <Col xs={10} id="page-content-wrapper">
+                      <CreateTournments />
+                    </Col>
+                  </Row>
+                </Container>
+              </ProtectedRoute>
             </ProtectedRoute>
           }
         />

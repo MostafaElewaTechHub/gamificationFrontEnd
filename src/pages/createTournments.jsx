@@ -174,7 +174,11 @@ function CreateTournments() {
               <Form.Control
                 type="text"
                 placeholder="end time"
-                onChange={(e) => setEndTime(e.target.value)}
+                onChange={(e) =>
+                  setEndTime(
+                    Math.floor(new Date(e.target.value).getTime() / 1000)
+                  )
+                }
               ></Form.Control>
             </Form.Group>
           </Col>

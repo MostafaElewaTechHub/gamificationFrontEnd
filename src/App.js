@@ -8,6 +8,8 @@ import Tournments from "./pages/tournment";
 import SignIn from "./pages/signIn";
 import ProtectedRoute from "./components/protectedRoute";
 import CreateTournments from "./pages/createTournments";
+import { Sidebar } from "./components/sidebar";
+import { Col, Container, Row } from "react-bootstrap";
 // import BasicExample from "./components/table";
 
 function App() {
@@ -15,14 +17,39 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route exact path="/about" element={<About />} />
+        <Route
+          exact
+          path="/about"
+          element={
+            <>
+              <Container fluid>
+                <Row>
+                  <Col xs={2} id="sidebar-wrapper">
+                    <Sidebar />
+                  </Col>
+                  <Col xs={10} id="page-content-wrapper">
+                    <About />
+                  </Col>
+                </Row>
+              </Container>
+            </>
+          }
+        />
         <Route
           exact
           path="/tournments"
           element={
             <ProtectedRoute>
-              {" "}
-              <Tournments />{" "}
+              <Container fluid>
+                <Row>
+                  <Col xs={2} id="sidebar-wrapper">
+                    <Sidebar />
+                  </Col>
+                  <Col xs={10} id="page-content-wrapper">
+                    <Tournments />
+                  </Col>
+                </Row>
+              </Container>
             </ProtectedRoute>
           }
         />

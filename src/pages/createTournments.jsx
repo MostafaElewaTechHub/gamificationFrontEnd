@@ -2,16 +2,24 @@ import "./styles/SignIn.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { Button, Container, Form, Row, Col, FormLabel } from "react-bootstrap";
 const baseURL = "http://localhost:5000/api/v1/tournament";
 function CreateTournments() {
+  console.log(new Date().getTime());
   const [title, setTitle] = useState("");
   const [description, setDescrption] = useState("");
   const [message, setMessage] = useState("");
   const [joinRequired, setJoinRequired] = useState("");
   const [subject, setSubject] = useState("");
-  const [sortOrder, setSortOrder] = useState("");
-  const [operator, setOperator] = useState("");
+  const [sortOrder, setSortOrder] = useState("ascending");
+  const [operator, setOperator] = useState("best");
+  const [maxSize, setMaxSize] = useState("");
+  const [startTime, setStartTime] = useState(
+    Math.floor(new Date().getTime() / 1000)
+  );
+  const [governorate, setGovernorate] = useState("Giza");
+  const [endTime, setEndTime] = useState(0);
+
   const navigate = useNavigate();
   let handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,14 +33,9 @@ function CreateTournments() {
           code: 101,
           persistent: true,
         },
-        users: [
-          //   {
-          //     id: "69ca8540-69c4-4f64-985f-1b19c991be03",
-          //     username: "hamza4",
-          //   },
-        ],
+        users: [],
         filter: {
-          location: "Damietta",
+          location: governorate,
         },
         tournament: {
           authoritative: false,
@@ -45,10 +48,10 @@ function CreateTournments() {
           },
           title,
           description,
-          category: 1,
-          startTime: 1679178764,
-          endTime: 0,
-          maxSize: 10000,
+          category: 0,
+          startTime,
+          endTime,
+          maxSize,
           maxNumScore: 2,
           joinRequired: true,
         },
@@ -71,10 +74,10 @@ function CreateTournments() {
   return (
     <div className="App">
       <Form onSubmit={handleSubmit}>
-        {/* <Container fluid className="form"> */}
         <Row>
           <Col xs={5}>
             <Form.Group className="mb-3" controlId="title">
+              <FormLabel>title</FormLabel>
               <Form.Control
                 type="text"
                 placeholder="Title"
@@ -84,6 +87,7 @@ function CreateTournments() {
           </Col>
           <Col xs={7} id="sidebar-wrapper">
             <Form.Group className="mb-3" controlId="description">
+              <FormLabel>description</FormLabel>
               <Form.Control
                 type="text"
                 placeholder="description"
@@ -94,16 +98,19 @@ function CreateTournments() {
         </Row>
         <Row>
           <Col xs={5}>
-            <Form.Group className="mb-3" controlId="joinRequired">
+            <Form.Group className="mb-3" controlId="maxSize">
+              <FormLabel>maximum Size</FormLabel>
               <Form.Control
-                type="text"
-                placeholder="joinRequired"
-                onChange={(e) => setJoinRequired(e.target.value)}
+                type="number"
+                placeholder="Max size"
+                onChange={(e) => setMaxSize(Number(e.target.value))}
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group className="mb-3" controlId="Subject">
+              <FormLabel>Subject</FormLabel>
+
               <Form.Control
                 type="text"
                 placeholder="Subject"
@@ -115,27 +122,102 @@ function CreateTournments() {
         <Row>
           <Col xs={5}>
             <Form.Group className="mb-3" controlId="sortOrder">
+              <FormLabel>sort order</FormLabel>
               <Form.Control
                 type="text"
-                placeholder="sortOrder"
+                as="select"
+                placeholder="operator"
                 onChange={(e) => setSortOrder(e.target.value)}
-              />
+              >
+                <option value="ascending"> Ascending</option>
+                <option value="descending">Descending</option>
+              </Form.Control>
             </Form.Group>
           </Col>
           <Col>
             <Form.Group className="mb-3" controlId="operator">
+              <FormLabel>Operator</FormLabel>
+
               <Form.Control
                 type="text"
+                as="select"
                 placeholder="operator"
                 onChange={(e) => setOperator(e.target.value)}
-              />
+              >
+                <option value="best">Best</option>
+                <option value="set">Set</option>
+                <option value="incr">Increment</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={5}>
+            <Form.Group className="mb-3" controlId="sortOrder">
+              <FormLabel>Start Time</FormLabel>
+              <Form.Control
+                type="text"
+                placeholder="start time"
+                onChange={(e) =>
+                  setStartTime(
+                    Math.floor(new Date(e.target.value).getTime() / 1000)
+                  )
+                }
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+
+          <Col>
+            <Form.Group className="mb-3" controlId="operator">
+              <FormLabel>End Time</FormLabel>
+              <Form.Control
+                type="text"
+                placeholder="end time"
+                onChange={(e) => setEndTime(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={5}>
+            <Form.Group className="mb-3" controlId="sortOrder">
+              <Form.Check type="checkbox" label="require join"></Form.Check>
+            </Form.Group>
+          </Col>
+        </Row>
+        <h3> Filter </h3>
+        <Row>
+          <Col xs={5}>
+            <Form.Group className="mb-3" controlId="filter">
+              <FormLabel>Filter</FormLabel>
+              <Form.Control
+                type="text"
+                as="select"
+                placeholder="filter"
+                // onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="location"> Location</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+          <Col xs={7}>
+            <Form.Group className="mb-3" controlId="filter">
+              <FormLabel>Government</FormLabel>
+              <Form.Control
+                type="text"
+                as="select"
+                placeholder="filter"
+                onChange={(e) => setGovernorate(e.target.value)}
+              >
+                <option value="Giza"> Giza</option>
+                <option value="Damietta"> Damietta</option>
+                <option value="Cairo"> Cairo</option>
+              </Form.Control>
             </Form.Group>
           </Col>
         </Row>
         <Button type="submit">create</Button>
-        {/* </Container> */}
-
-        <div className="message">{message ? <p>{message}</p> : null}</div>
       </Form>
     </div>
   );

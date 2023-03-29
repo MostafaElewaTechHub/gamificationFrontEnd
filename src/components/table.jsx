@@ -1,25 +1,34 @@
 import Table from "react-bootstrap/Table";
 import React from "react";
 
-function BasicExample({ parentToChild }) {
+function BasicExample({ data, keys }) {
   return (
     <Table bordered hover className="table">
       <thead>
         <tr>
-          <th>id</th>
-          <th>create Time</th>
-          <th>sort order</th>
-          <th>operator</th>
+          {keys.map((key) => {
+            return <th>{key}</th>;
+          })}
         </tr>
       </thead>
       <tbody>
-        {parentToChild.map((parentToChild) => {
+        {data.map((data) => {
           return (
-            <tr key={parentToChild.id}>
-              <td>{parentToChild.id}</td>
-              <td>{parentToChild.createTime}</td>
-              <td>{parentToChild.sortOrder}</td>
-              <td>{parentToChild.operator}</td>
+            <tr key={data.id}>
+              {keys.map((key) => {
+                if (
+                  key === "end_active" ||
+                  key === "next_reset" ||
+                  key === "start_active" ||
+                  key === "prev_reset"
+                ) {
+                  const date = new Date(data[key]);
+                  const formattedDate = date.toLocaleString();
+                  console.log(formattedDate);
+                  return <td>{formattedDate}</td>;
+                }
+                return <td>{data[key]}</td>;
+              })}
             </tr>
           );
         })}

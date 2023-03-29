@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./pages/About";
+import { Home } from "./pages/Home";
+import Tournments from "./pages/tournment";
+import SignIn from "./pages/signIn";
+import ProtectedRoute from "./components/protectedRoute";
+import CreateTournments from "./pages/createTournments";
+// import BasicExample from "./components/table";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route exact path="/about" element={<About />} />
+        <Route
+          exact
+          path="/tournments"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Tournments />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/create-tournments"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <CreateTournments />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route exact path="/signin" element={<SignIn />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

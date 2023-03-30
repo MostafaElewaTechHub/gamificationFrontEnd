@@ -1,5 +1,6 @@
 import Table from "react-bootstrap/Table";
 import React from "react";
+import { Button } from "react-bootstrap";
 
 function BasicExample({ data, keys }) {
   return (
@@ -9,6 +10,7 @@ function BasicExample({ data, keys }) {
           {keys.map((key) => {
             return <th>{key}</th>;
           })}
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -29,6 +31,9 @@ function BasicExample({ data, keys }) {
                 }
                 return <td>{data[key]}</td>;
               })}
+              <td>
+                <Button variant="danger">Delete</Button>
+              </td>
             </tr>
           );
         })}

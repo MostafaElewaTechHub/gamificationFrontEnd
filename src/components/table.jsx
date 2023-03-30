@@ -16,6 +16,7 @@ function BasicExample({ data, keys }) {
       </thead>
       <tbody>
         {data.map((data) => {
+          data.category = "True and False";
           return (
             <tr key={data.id}>
               {keys.map((key) => {

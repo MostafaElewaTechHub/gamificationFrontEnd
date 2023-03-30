@@ -2,13 +2,14 @@ import BasicExample from "../components/table";
 import axios from "axios";
 import React from "react";
 import { Sidebar } from "../components/sidebar";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import "../components/sidebarStyle.css";
 import { Navigate } from "react-router-dom";
 const baseURL = "http://localhost:5000/api/v1/tournament/all";
 
 export default function Tournments() {
   const [tournment, setTournment] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
   const token = localStorage.getItem("jwt");
   const keys = [
     "id",
@@ -18,7 +19,6 @@ export default function Tournments() {
     "sort_order",
     "max_size",
     "max_num_score",
-    "can_enter",
     "end_active",
     "next_reset",
     "metadata",
@@ -42,17 +42,24 @@ export default function Tournments() {
         if (response.statusCode === 401) {
           return <Navigate to="/signin" replace />;
         }
+
         setTournment(response.data);
+        setLoading(false);
       });
   }, [token]);
-
-  if (!tournment) return "No Tournments!";
+  if (loading) {
+    return <Spinner animation="border" />;
+  }
 
   return (
     <>
-      <Container fluid>
-        <BasicExample data={tournment} keys={keys}></BasicExample>
-      </Container>
+      {tournment ? (
+        <Container fluid>
+          <BasicExample data={tournment} keys={keys}></BasicExample>
+        </Container>
+      ) : (
+        "No Tournements Available"
+      )}
     </>
   );
 }

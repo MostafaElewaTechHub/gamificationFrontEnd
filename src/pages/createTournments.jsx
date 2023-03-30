@@ -26,7 +26,7 @@ function CreateTournments() {
     try {
       let res = await axios.post(baseURL, {
         notification: {
-          subject,
+          subject: "New tournment",
           content: {
             message: "you have been added to a new tournment",
           },
@@ -109,13 +109,11 @@ function CreateTournments() {
           </Col>
           <Col>
             <Form.Group className="mb-3" controlId="Subject">
-              <FormLabel>Subject</FormLabel>
+              <FormLabel>Theme</FormLabel>
 
-              <Form.Control
-                type="text"
-                placeholder="Subject"
-                onChange={(e) => setSubject(e.target.value)}
-              />
+              <Form.Control type="text" as="select" placeholder="operator">
+                <option value="ascending"> True and False </option>
+              </Form.Control>
             </Form.Group>
           </Col>
         </Row>

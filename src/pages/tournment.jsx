@@ -38,11 +38,11 @@ export default function Tournments() {
         },
       })
       .then((response) => {
-        console.log(response.data.tournaments);
+        console.log(response.data);
         if (response.statusCode === 401) {
           return <Navigate to="/signin" replace />;
         }
-        setTournment(response.data.tournaments);
+        setTournment(response.data);
       });
   }, [token]);
 

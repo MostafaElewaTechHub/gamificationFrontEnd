@@ -1,10 +1,11 @@
 import Table from "react-bootstrap/Table";
 import React from "react";
+import "./table.css";
 import { Button } from "react-bootstrap";
 
 function BasicExample({ data, keys }) {
   return (
-    <Table bordered hover className="table">
+    <Table bordered hover className="table" responsive="sm">
       <thead>
         <tr>
           {keys.map((key) => {
@@ -26,13 +27,14 @@ function BasicExample({ data, keys }) {
                 ) {
                   const date = new Date(data[key]);
                   const formattedDate = date.toLocaleString();
-                  console.log(formattedDate);
                   return <td>{formattedDate}</td>;
                 }
                 return <td>{data[key]}</td>;
               })}
               <td>
-                <Button variant="danger">Delete</Button>
+                <Button className="button" size="sm" variant="danger">
+                  Delete
+                </Button>
               </td>
             </tr>
           );

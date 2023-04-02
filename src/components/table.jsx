@@ -5,43 +5,50 @@ import { Button } from "react-bootstrap";
 
 function BasicExample({ data, keys }) {
   return (
-    <Table bordered hover className="table" responsive="sm">
-      <thead>
-        <tr>
-          {keys.map((key) => {
-            return <th>{key}</th>;
+    <div className="table">
+      <Table bordered hover className="table" size="xxl">
+        <thead className="head">
+          <tr>
+            {keys.map((key) => {
+              return <th>{key}</th>;
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((data) => {
+            data.category = "True and False";
+            return (
+              <tr key={data.id}>
+                {keys.map((key) => {
+                  if (key === "end_active" || key === "next_reset" || key === "start_active" || key === "prev_reset") {
+                    const date = new Date(data[key]);
+                    const formattedDate = date.toLocaleString();
+                    return <td>{formattedDate}</td>;
+                  } else if (key === "Delete") {
+                    return (
+                      <td>
+                        <Button size="sm" variant="danger" className="button">
+                          Delete
+                        </Button>
+                      </td>
+                    );
+                  } else if (key === "Show More") {
+                    return (
+                      <td>
+                        <Button size="sm" variant="info" className="button">
+                          Show More
+                        </Button>
+                      </td>
+                    );
+                  }
+                  return <td>{data[key]}</td>;
+                })}
+              </tr>
+            );
           })}
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((data) => {
-          data.category = "True and False";
-          return (
-            <tr key={data.id}>
-              {keys.map((key) => {
-                if (
-                  key === "end_active" ||
-                  key === "next_reset" ||
-                  key === "start_active" ||
-                  key === "prev_reset"
-                ) {
-                  const date = new Date(data[key]);
-                  const formattedDate = date.toLocaleString();
-                  return <td>{formattedDate}</td>;
-                }
-                return <td>{data[key]}</td>;
-              })}
-              <td>
-                <Button className="button" size="sm" variant="danger">
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+        </tbody>
+      </Table>
+    </div>
   );
 }
 export default BasicExample;

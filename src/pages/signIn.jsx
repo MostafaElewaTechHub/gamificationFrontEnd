@@ -46,26 +46,11 @@ function SignIn() {
         <h1>Sign in</h1>
         <h7> Track your Competators</h7>
         <Container fluid className="form">
-          {/* <Form.Group className="mb-3" controlId="name">
-            <Form.Control
-              type="text"
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </Form.Group> */}
           <Form.Group className="mb-3" controlId="Email">
-            <Form.Control
-              type="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <Form.Control type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="Password">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
           </Form.Group>
 
           <Button type="submit">Sign In</Button>

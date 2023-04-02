@@ -4,6 +4,7 @@ import React from "react";
 import { Sidebar } from "../components/sidebar";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import "../components/sidebarStyle.css";
+import image from "../image.jpg";
 import { Navigate } from "react-router-dom";
 const baseURL = "http://localhost:5000/api/v1/tournament/all";
 
@@ -54,7 +55,14 @@ export default function Tournments() {
   return (
     <>
       {tournment ? (
-        <Container fluid>
+        <Container
+          fluid
+          style={{
+            backgroundImage: `url (${image})`,
+            backgroundSize: "cover",
+            height: " 100vh",
+          }}
+        >
           <BasicExample data={tournment} keys={keys}></BasicExample>
         </Container>
       ) : (

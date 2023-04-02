@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/protectedRoute";
 import CreateTournments from "./pages/createTournments";
 import { Sidebar } from "./components/sidebar";
 import { Col, Container, Row } from "react-bootstrap";
+import SignUp from "./pages/SignUp";
 // import BasicExample from "./components/table";
 
 function App() {
@@ -73,7 +74,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route exact path="/signin" element={<SignIn />} />
+        <Route exact path="/signin" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );

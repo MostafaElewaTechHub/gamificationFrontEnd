@@ -154,8 +154,8 @@ function CreateTournments() {
                     onChange={ e=> { handleChange(e) ;setTheme(e.target.value) } }
                     value={fields["tuornament-type"]}>
                 <option value="true_false"> True and False </option>
-                <option value="points"> Pruches </option>
-                <option value="mcq"> Pruches </option>
+                <option value="points"> Points </option>
+                <option value="mcq"> MCQ </option>
               </Form.Control>
             </Form.Group>
           </Col>
